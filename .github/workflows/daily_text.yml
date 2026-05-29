@@ -30,4 +30,5 @@ jobs:
         TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
         TWILIO_PHONE_NUMBER: ${{ secrets.TWILIO_PHONE_NUMBER }}
         RECIP_PHONE_NUMBER: ${{ secrets.RECIP_PHONE_NUMBER }}
+        APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
       run: python sunset.py
