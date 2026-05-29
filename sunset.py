@@ -139,12 +139,13 @@ try:
     msg['From'] = SENDER_EMAIL
     msg['To'] = RECIP_EMAIL
 
+    print(SENDER_EMAIL, RECIP_EMAIL, APP_PASSWORD)
     # 3. Fire it through a standard SMTP mail server
     try:
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         # Use a secure App Password generated in your Gmail settings
-        server.login("sunsetscout75@gmail.com", "APP_PASSWORD") 
+        server.login(SENDER_EMAIL, APP_PASSWORD) 
         server.sendmail(msg['From'], msg['To'], msg.as_string())
         server.quit()
         print("Text instantly delivered to her phone via carrier gateway!")
