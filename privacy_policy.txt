@@ -1,0 +1,24 @@
+Sunset Scout Notification Service Privacy Policy
+This service is a private, non-commercial hobbyist application built solely to send daily weather and sunset updates to a single verified family member.
+
+Sunset Scout Notification Service Onboarding & Call to Action
+How to Sign Up:
+This is a private, non-commercial application. Individuals opt into this service exclusively via a verbal, in-person request to the application administrator and by providing their mobile number.
+
+What to Expect:
+Upon joining, users will receive a single welcome text message confirming enrollment. Afterward, subscribers will receive exactly one (1) automated text message per day, sent approximately 15 minutes prior to the local sunset time, containing a summary of local weather conditions and sunset metrics.
+
+Disclosures & Fees:
+Message and data rates may apply. Message frequency is exactly 1 msg/day.
+
+How to Opt-Out:
+You can terminate this service at any time by replying with the keyword STOP to any text message received. For help information, reply HELP.
+
+Mobile Information Non-Sharing Statement:
+No mobile phone numbers, opt-in data, or personal information collected for this service will be shared, sold, or rented to any third parties or affiliates under any circumstances.
+
+Message Frequency:
+The subscriber will receive exactly one (1) automated text message per day, sent approximately 15 minutes prior to the local sunset time.
+
+Disclosure:
+Message and data rates may apply. You can reply STOP to opt-out at any time.

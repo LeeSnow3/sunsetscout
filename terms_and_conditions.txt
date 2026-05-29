@@ -1,0 +1,9 @@
+Sunset Scout Notification Service Terms and Conditions
+
+By verbally opting in and manually verifying your mobile number via the Twilio sandbox configuration interface, you agree to receive one daily automated text message containing local weather metrics and sunset times.
+
+This service is provided entirely free of charge as a personal, non-commercial gift.
+
+Message and data rates may apply depending on your mobile carrier plan.
+
+You can terminate this service at any time by replying STOP to any text message received.
