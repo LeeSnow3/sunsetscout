@@ -7,6 +7,9 @@ from twilio.rest import Client
 import pandas as pd
 import requests_cache
 from retry_requests import retry
+import smtplib
+from email.mime.text import MIMEText
+
 
 LAT = "36.077"
 LON = "-75.80"
@@ -126,19 +129,24 @@ try:
         f"{condition}\n"
         f"Temp: {temp:.1f}°F"
     )
+    MOM_SMS_EMAIL = "2524891412@vtext.com" 
 
-    # Send the text
-    account_sid = os.environ['TWILIO_ACCOUNT_SID']
-    auth_token = os.environ['TWILIO_AUTH_TOKEN']
-    client = Client(account_sid, auth_token)
+    # 2. Package your existing message_body
+    msg = MIMEText(message_body)
+    msg['From'] = "sunsetscout75@gmail.com"
+    msg['To'] = MOM_SMS_EMAIL
 
-    message = client.messages.create(
-        body=message_body,
-        from_=os.environ['TWILIO_PHONE_NUMBER'],
-        to=os.environ['RECIP_PHONE_NUMBER']
-    )
-    
-    print(f"Text successfully dispatched to Twilio! Message SID: {message.sid}")
+    # 3. Fire it through a standard SMTP mail server
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        # Use a secure App Password generated in your Gmail settings
+        server.login("sunsetscout75@gmail.com", "APP_PASSWORD") 
+        server.sendmail(msg['From'], msg['To'], msg.as_string())
+        server.quit()
+        print("Text instantly delivered to her phone via carrier gateway!")
+    except Exception as e:
+        print(f"Email gateway delivery failed: {e}")
 
 
 except Exception as e:
