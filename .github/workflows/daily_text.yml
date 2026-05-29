@@ -32,4 +32,5 @@ jobs:
         RECIP_PHONE_NUMBER: ${{ secrets.RECIP_PHONE_NUMBER }}
         APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
         RECIP_EMAIL: ${{ secrets.RECIP_EMAIL }}
+        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
       run: python sunset.py
