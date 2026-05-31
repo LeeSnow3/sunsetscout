@@ -25,6 +25,7 @@ jobs:
     - name: Run Script
       # This injects your secure GitHub Secrets into the script's environment variables
       env:
+        TZ: "America/New_York"
         PYTHONUNBUFFERED: "1"
         TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
         TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
