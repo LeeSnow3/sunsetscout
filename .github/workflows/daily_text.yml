@@ -2,7 +2,7 @@ name: Send Daily Sunset Text
 
 on:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '0 16 * * *'
       timezone: 'America/New_York'
   workflow_dispatch: # This allows you to click a button to test it manually anytime
 
