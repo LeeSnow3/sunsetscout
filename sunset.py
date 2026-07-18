@@ -36,7 +36,7 @@ try:
 
     if wait_seconds > 0:
         print(f"Waiting {wait_seconds / 60:.1f} minutes to send text at {target_text_time.strftime('%I:%M %p')}...")
-        time.sleep(wait_seconds)
+        #time.sleep(wait_seconds)
     else:
         print("It is already past the 15-minute window for today, sending text immediately!")
 
