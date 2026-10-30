@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Mom's Sunset Tracker</title>
+
+  <!-- iOS PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sunsets">
+  <link rel="apple-touch-icon" href="./icon.png">
+
+  <!-- PWA Manifest & Colors -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" href="./icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-title-row">
+        <img src="./icon.png" alt="Sunset Icon" class="app-icon">
+        <h1 class="app-title">Mom's Sunset Tracker</h1>
+      </div>
+      <p class="app-subtitle">Daily Horizon Forecast & Photo Journal</p>
+    </header>
+
+    <!-- SECTION A: Live Sunset & Sky Forecast Card -->
+    <section class="card" id="forecast-card" aria-labelledby="forecast-heading">
+      <div class="card-header">
+        <h2 class="card-title" id="forecast-heading">
+          <span class="card-title-icon">🌅</span> Live Sunset & Sky Forecast
+        </h2>
+        <button id="refreshWeatherBtn" class="btn-icon-only" title="Refresh weather forecast" aria-label="Refresh forecast">
+          🔄
+        </button>
+      </div>
+
+      <!-- Hero Sunset Time Display -->
+      <div class="sunset-hero">
+        <div class="sunset-label">Today's Sunset Time</div>
+        <div class="sunset-time" id="sunsetTimeDisplay">--:-- --</div>
+        <div class="sunset-subtext" id="sunsetCountdown">Loading today's horizon...</div>
+      </div>
+
+      <!-- Custom Condition Box Ported from sunset.py -->
+      <div class="condition-box" id="conditionBox">
+        <div class="condition-title">
+          <span>Sky Condition Prediction</span>
+          <span id="conditionTag" class="condition-tag">Evaluating...</span>
+        </div>
+        <div class="condition-text" id="conditionText">
+          Fetching weather conditions around the sunset window...
+        </div>
+        <div class="condition-mom-msg" id="momMessagePreview">
+          Hi Mom! Checking today's sunset forecast...
+        </div>
+      </div>
+
+      <!-- Detailed Cloud Cover & Weather Metrics Breakdown -->
+      <div class="metrics-grid">
+        <div class="metric-pill">
+          <div class="metric-pill-header">
+            <span>Temperature</span>
+            <span>🌡️</span>
+          </div>
+          <div class="metric-pill-value" id="valTemp">--°F</div>
+          <div class="cloud-bar-track"><div class="cloud-bar-fill" id="barTemp" style="width: 0%"></div></div>
+        </div>
+
+        <div class="metric-pill">
+          <div class="metric-pill-header">
+            <span>Total Clouds</span>
+            <span>☁️</span>
+          </div>
+          <div class="metric-pill-value" id="valTotalClouds">--%</div>
+          <div class="cloud-bar-track"><div class="cloud-bar-fill" id="barTotalClouds" style="width: 0%"></div></div>
+        </div>
+
+        <div class="metric-pill">
+          <div class="metric-pill-header">
+            <span>Low Clouds</span>
+            <span>🌫️</span>
+          </div>
+          <div class="metric-pill-value" id="valLowClouds">--%</div>
+          <div class="cloud-bar-track"><div class="cloud-bar-fill" id="barLowClouds" style="width: 0%"></div></div>
+        </div>
+
+        <div class="metric-pill">
+          <div class="metric-pill-header">
+            <span>Mid Clouds</span>
+            <span>🌥️</span>
+          </div>
+          <div class="metric-pill-value" id="valMidClouds">--%</div>
+          <div class="cloud-bar-track"><div class="cloud-bar-fill" id="barMidClouds" style="width: 0%"></div></div>
+        </div>
+
+        <div class="metric-pill">
+          <div class="metric-pill-header">
+            <span>High Cirrus</span>
+            <span>✨</span>
+          </div>
+          <div class="metric-pill-value" id="valHighClouds">--%</div>
+          <div class="cloud-bar-track"><div class="cloud-bar-fill" id="barHighClouds" style="width: 0%"></div></div>
+        </div>
+
+        <div class="metric-pill">
+          <div class="metric-pill-header">
+            <span>Precipitation</span>
+            <span>💧</span>
+          </div>
+          <div class="metric-pill-value" id="valRain">-- in</div>
+          <div class="cloud-bar-track"><div class="cloud-bar-fill" id="barRain" style="width: 0%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION B: Location & Push Alerts Card -->
+    <section class="card" id="location-push-card" aria-labelledby="location-heading">
+      <div class="card-header">
+        <h2 class="card-title" id="location-heading">
+          <span class="card-title-icon">📍</span> Location & Push Alerts
+        </h2>
+      </div>
+
+      <!-- Current Coordinates Status -->
+      <div class="location-status">
+        <div class="coord-label">Current Monitored Coordinates</div>
+        <div class="coord-row" id="coordDisplay">
+          <span>📍</span>
+          <span id="coordText">36.0772° N, 75.8059° W (Default: Nags Head, NC)</span>
+        </div>
+        <div class="push-status-badge" id="pushBadge">
+          <span>🔔</span>
+          <span id="pushStatusText">Push Alerts: Ready to activate</span>
+        </div>
+      </div>
+
+      <!-- Direct Tap Button for iOS Web Push Compliance -->
+      <button id="enableAlertsBtn" class="btn btn-primary">
+        <span class="btn-icon">📍</span> Update Location & Enable Sunset Alerts
+      </button>
+
+      <p class="push-note">
+        📱 <strong>iOS Tip:</strong> To receive lock screen alerts on iOS 16.4+, tap <em>Share</em> (⎋) in Safari and choose <strong>"Add to Home Screen"</strong>, then tap the button above!
+      </p>
+    </section>
+
+    <!-- SECTION C: Sunset Photo Journal Card -->
+    <section class="card" id="journal-card" aria-labelledby="journal-heading">
+      <div class="card-header">
+        <h2 class="card-title" id="journal-heading">
+          <span class="card-title-icon">📸</span> Sunset Photo Journal
+        </h2>
+        <span id="photoCountBadge" class="coord-label">0 photos</span>
+      </div>
+
+      <!-- Photo Snap / Upload Actions -->
+      <div class="journal-actions">
+        <!-- Direct Camera Snapping Input (styled as primary button) -->
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" class="file-input-hidden">
+        <label for="cameraInput" class="btn btn-primary" role="button">
+          <span class="btn-icon">📷</span> Snap Photo
+        </label>
+
+        <!-- Library Upload Input -->
+        <input type="file" id="libraryInput" accept="image/*" class="file-input-hidden">
+        <label for="libraryInput" class="btn btn-secondary" role="button">
+          <span class="btn-icon">🖼️</span> Choose Photo
+        </label>
+      </div>
+
+      <!-- Responsive Photo Gallery Grid -->
+      <div class="photo-gallery-grid" id="photoGallery">
+        <!-- Loaded dynamically from IndexedDB -->
+        <div class="gallery-empty" id="galleryEmpty">
+          <span class="gallery-empty-icon">🌅</span>
+          No sunset photos saved yet.<br>Snap today's horizon to start your journal!
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox Modal for Photo Full View -->
+  <div class="modal-overlay" id="photoModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">✕</button>
+      <img src="" alt="Full Sunset View" class="modal-img" id="modalImg">
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <!-- In-App Notification Toast -->
+  <div class="toast" id="toastMessage" role="status" aria-live="polite"></div>
+
+  <!-- App Script -->
+  <script src="./app.js"></script>
+</body>
+</html>
+

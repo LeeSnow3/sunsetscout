@@ -1,0 +1,20 @@
+{
+  "name": "Sunset Scout",
+  "short_name": "Sunset_Scout",
+  "description": "Daily sunset forecast, cloud conditions, and photo journal.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a1a2e",
+  "theme_color": "#ff6b6b",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
